@@ -1,15 +1,25 @@
 BUILD_DIR := build
 ROM       ?=
+GENERATOR ?= Ninja
 
 ifeq ($(OS),Windows_NT)
-	EXEEXT := .exe
+    EXEEXT := .exe
 else
-	EXEEXT :=
+    EXEEXT :=
+endif
+
+ifeq ($(GENERATOR),Make)
+    CMAKE_GEN := "Unix Makefiles"
+    ifeq ($(OS),Windows_NT)
+        CMAKE_GEN := "MinGW Makefiles"
+    endif
+else
+    CMAKE_GEN := Ninja
 endif
 
 CMAKE_FLAGS := \
-	-G Ninja \
-	-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+    -G $(CMAKE_GEN) \
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
 .PHONY: all run release clean
 

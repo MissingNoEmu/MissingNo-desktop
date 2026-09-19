@@ -27,16 +27,41 @@ git commit -m "Update MissingNo-core"
 ```
 ### Running
 
+#### Prerequisites
+- CMake (required)
+- Ninja (default generator) or GNU Make
+
+> The Makefile lists Ninja as the default build system, which you need to have installed on your system. If you wish to use GNU Make instead, use `GENERATOR=Make` as an argument, or edit line 3 of Makefile to `GENERATOR ?= Make`.
+
+> Note that if you're switching build systems, you must delete the current `build/` directory.
+
+#### Using wrapper Makefile
+
 ```
 make          # normal build
-make run      # build + run
+make run ROM="path"  # Build and run with a ROM file
 
 make release  # clean + optimised build
 
 make clean    # remove build/ and bin/
 ```
 
-Use a `ROM` variable to pass in file path to the ROM file
+#### Using CMake directly (with Ninja)
+
+```
+# Configure (Debug by default)
+cmake -S . -B build -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Debug
+
+# Build
+cmake --build build
+
+# Run
+./build/MissingNo-desktop "path/to/rom.gb"   # On Windows: .\build\MissingNo-desktop.exe "path\to\rom.gb"
+
+# Release build (optional)
+cmake -S . -B build -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+```
 
 ## License
 
