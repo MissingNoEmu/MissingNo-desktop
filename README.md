@@ -31,19 +31,19 @@ git commit -m "Update MissingNo-core"
 - CMake (required)
 - Ninja (default generator) or GNU Make
 
+#### Using wrapper Makefile
 > The Makefile lists Ninja as the default build system, which you need to have installed on your system. If you wish to use GNU Make instead, use `GENERATOR=Make` as an argument, or edit line 3 of Makefile to `GENERATOR ?= Make`.
 
 > Note that if you're switching build systems, you must delete the current `build/` directory.
 
-#### Using wrapper Makefile
-
 ```
-make          # normal build
+make                 # normal build
+
 make run ROM="path"  # Build and run with a ROM file
 
-make release  # clean + optimised build
+make release         # clean + optimised build
 
-make clean    # remove build/ and bin/
+make clean           # remove build/ and bin/
 ```
 
 #### Using CMake directly (with Ninja)
